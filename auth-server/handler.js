@@ -48,6 +48,7 @@ module.exports.getAccessToken = async (event) => {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
         },
         body: JSON.stringify(results),
       };
@@ -60,7 +61,7 @@ module.exports.getAccessToken = async (event) => {
     });
 };
 
-module.exports.getCalenderEvents = async (event) => {
+module.exports.getCalendarEvents = async (event) => {
   const access_token = decodeURIComponent(
     `${event.pathParameters.access_token}`
   );
@@ -98,6 +99,7 @@ module.exports.getCalenderEvents = async (event) => {
         statusCode: 500,
         headers: {
           "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
         },
         body: JSON.stringify(err),
       };
