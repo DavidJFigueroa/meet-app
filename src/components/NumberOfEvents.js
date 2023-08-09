@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const NumberOfEvents = ({ eventNumber, onEventNumberChange }) => {
+const NumberOfEvents = ({eventNumber, onEventNumberChange}) => {
   const handleInputChanged = (value) => {
     const numberValue = parseInt(value); // Convert the input value to a number
     if (!isNaN(numberValue)) {
@@ -13,7 +13,7 @@ const NumberOfEvents = ({ eventNumber, onEventNumberChange }) => {
   };
 
   return (
-    <div data-testid="number-of-events">
+    <div data-testid="number-of-events" id="number-of-events">
       <input
         onFocus={() => {
           onEventNumberChange("");
