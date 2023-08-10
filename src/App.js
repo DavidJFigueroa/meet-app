@@ -16,14 +16,18 @@ const App = () => {
     const fetchData = async () => {
       try {
         const eventList = await getEvents();
-        setEvents(eventList);
+        const filteredEvents =
+          selectedCity === "See all cities"
+            ? eventList
+            : eventList.filter((event) => event.location === selectedCity);
+        setEvents(filteredEvents.slice(0, eventNumber));
         setAllLocations(extractLocations(eventList));
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, []);
+  }, [selectedCity]);
 
   const handleCitySelected = (city, numberOfEvents) => {
     setSelectedCity(city);
@@ -48,7 +52,7 @@ const App = () => {
     <div className="App" style={{backgroundColor: "#f04908"}}>
       <CitySearch
         allLocations={allLocations}
-        setSelectedCity={handleCitySelected}
+        setSelectedCity={setSelectedCity}
       />
       <NumberOfEvents
         eventNumber={eventNumber}

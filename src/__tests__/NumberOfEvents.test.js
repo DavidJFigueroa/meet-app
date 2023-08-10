@@ -14,18 +14,7 @@ describe("<NumberOfEvents /> component", () => {
     const numberTextBox = screen.getByPlaceholderText("Enter a number");
     expect(numberTextBox).toHaveValue("32");
   });
-  test("user can change number of events they wish to see listed", async () => {
-    const handleEventNumberChange = jest.fn();
-    render(
-      <NumberOfEvents
-        eventNumber={32}
-        onEventNumberChange={handleEventNumberChange}
-      />
-    );
-    const numberTextBox = screen.getByPlaceholderText("Enter a number");
-    await userEvent.type(numberTextBox, "10");
-    expect(handleEventNumberChange).toHaveBeenCalled();
-  });
+
   describe("<NumberOfEvents /> integration", () => {
     test("renders a specific number of events when the app is rendered", async () => {
       //const currentNumberOfEvents = 32;
@@ -37,6 +26,18 @@ describe("<NumberOfEvents /> component", () => {
       const eventListItems = screen.queryAllByRole("listitem");
       expect(eventListItems.length).toBe(10);
     });
+  });
+  test("user can change number of events they wish to see listed", async () => {
+    const handleEventNumberChange = jest.fn();
+    render(
+      <NumberOfEvents
+        eventNumber={32}
+        onEventNumberChange={handleEventNumberChange}
+      />
+    );
+    const numberTextBox = screen.getByPlaceholderText("Enter a number");
+    await userEvent.type(numberTextBox, "{backspace}{backspace}10");
+    expect(handleEventNumberChange).toHaveBeenCalled();
   });
 });
 //});
