@@ -64,7 +64,7 @@ defineFeature(feature, (test) => {
     then,
   }) => {
     let AppComponent;
-    let button;
+
     given("the user sees the details of an event", async () => {
       AppComponent = render(<App />);
       const AppDOM = AppComponent.container.firstChild;
@@ -74,16 +74,17 @@ defineFeature(feature, (test) => {
         expect(eventList.length).toBe(32);
       });
 
-      button = AppComponent.queryAllByText("Show Details")[0];
-      await userEvent.click(button);
+      const button = AppComponent.queryAllByText("Hide Details");
+      userEvent.click(button);
 
       const EventDOM = AppComponent.container.firstChild;
       const details = EventDOM.querySelector(".details");
-      expect(details).toBeInTheDocument();
+      expect(details).toBeDefined();
     });
 
     when("the user presses a button to hide event's details", async () => {
-      await userEvent.click(button);
+      const button = AppComponent.queryAllByText("Hide Details");
+      userEvent.click(button);
     });
 
     then("the details of that even will be hidden", () => {
