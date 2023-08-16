@@ -53,13 +53,21 @@ so that I can **_see more/less information about an event._**
 
 **_Scenario 1_**
 
+An event element is collapsed by default.
+
+- **_Given_** the user first opens the app;
+- **_When_** the user recieves the full list of events (specific for the city or all events)
+- **_Then_** all events will colapse by default.
+
+**_Scenario 2_**
+
 User can select details from a listed event
 
 - **_Given_** user was searching for events and a list of events is showing;
 - **_When_** the user selects "show details" on a specific event;
 - **_Then_** the event details should fold out on click;
 
-  **_Scenario 2_**
+**_Scenario 3_**
 
 User can colapse details from a listed event
 
