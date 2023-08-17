@@ -2,7 +2,12 @@
 
 import React from "react";
 
-const NumberOfEvents = ({eventNumber, onEventNumberChange}) => {
+const NumberOfEvents = ({
+  eventNumber,
+  setEventNumber,
+  onEventNumberChange,
+  setErrorAlert,
+}) => {
   const handleInputChanged = (value) => {
     const numberValue = parseInt(value); // Convert the input value to a number
     if (!isNaN(numberValue)) {
@@ -10,6 +15,19 @@ const NumberOfEvents = ({eventNumber, onEventNumberChange}) => {
     } else {
       onEventNumberChange(32);
     }
+
+    let errorText;
+    if (isNaN(value)) {
+      errorText = "Not a valid number";
+    } else if (value > 100) {
+      errorText = "Maximum Value is 100";
+    } else if (value <= 0) {
+      errorText = "Minimum Value is 1";
+    } else {
+      errorText = "";
+      setEventNumber();
+    }
+    setErrorAlert(errorText);
   };
 
   return (

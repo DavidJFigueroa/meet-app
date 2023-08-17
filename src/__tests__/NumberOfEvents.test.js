@@ -4,7 +4,7 @@ import NumberOfEvents from "../components/NumberOfEvents";
 import App from "../App";
 describe("<NumberOfEvents /> component", () => {
   test("checks if element has the role of a text box", () => {
-    render(<NumberOfEvents eventNumber={32} />);
+    render(<NumberOfEvents eventNumber={32} setEventNumber={() => {}} />);
     const numberTextBox = screen.queryByRole("textbox");
     expect(numberTextBox).toBeInTheDocument();
     expect(numberTextBox).toHaveClass("textbox");
@@ -33,6 +33,8 @@ describe("<NumberOfEvents /> component", () => {
       <NumberOfEvents
         eventNumber={32}
         onEventNumberChange={handleEventNumberChange}
+        setEventNumber={() => {}}
+        setErrorAlert={() => {}}
       />
     );
     const numberTextBox = screen.getByPlaceholderText("Enter a number");
