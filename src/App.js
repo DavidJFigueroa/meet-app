@@ -56,6 +56,8 @@ const App = () => {
         {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
         {errorAlert.length != 0 ? <ErrorAlert text={errorAlert} /> : null}
       </div>
+      <h1>Meet App</h1>
+      <p>Choose your nearest city</p>
       <CitySearch
         allLocations={allLocations}
         setSelectedCity={setSelectedCity}
