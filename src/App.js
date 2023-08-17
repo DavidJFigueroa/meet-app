@@ -4,7 +4,7 @@ import EventList from "./components/EventList";
 import {extractLocations, getEvents} from "./api";
 import NumberOfEvents from "./components/NumberOfEvents";
 import "./App.css";
-import {InfoAlert, ErrorAlert} from "./components/Alert";
+import {InfoAlert, ErrorAlert, WarningAlert} from "./components/Alert";
 
 const App = () => {
   const [selectedCity, setSelectedCity] = useState("See all cities");
@@ -14,6 +14,24 @@ const App = () => {
   const [eventNumber, setEventNumber] = useState(32);
   const [infoAlert, setInfoAlert] = useState("");
   const [errorAlert, setErrorAlert] = useState("");
+  const [warningAlert, setWarningAlert] = useState("");
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const eventList = await getEvents();
+  //       const filteredEvents =
+  //         selectedCity === "See all cities"
+  //           ? eventList
+  //           : eventList.filter((event) => event.location === selectedCity);
+  //       setEvents(filteredEvents.slice(0, eventNumber));
+  //       setAllLocations(extractLocations(eventList));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [selectedCity]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +48,13 @@ const App = () => {
       }
     };
     fetchData();
-  }, [selectedCity]);
+    if (navigator.onLine) {
+      setWarningAlert("");
+    } else {
+      setWarningAlert("You seem to be offline!");
+    }
+    fetchData();
+  }, [selectedCity, eventNumber]);
 
   const handleCitySelected = (city, numberOfEvents) => {
     setSelectedCity(city);
@@ -54,7 +78,8 @@ const App = () => {
     <div className="App" style={{backgroundColor: "#f04908"}}>
       <div className="alerts-container">
         {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
-        {errorAlert.length != 0 ? <ErrorAlert text={errorAlert} /> : null}
+        {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
+        {warningAlert.length ? <WarningAlert text={warningAlert} /> : null}
       </div>
       <h1>Meet App</h1>
       <p>Choose your nearest city</p>
