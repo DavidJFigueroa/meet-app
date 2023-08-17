@@ -1,6 +1,7 @@
 import {render, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CitySearch from "../components/CitySearch";
+
 import {extractLocations, getEvents} from "../api";
 import App from "../App";
 
@@ -100,4 +101,6 @@ describe("<CitySearch /> integration", () => {
       within(CitySearchDOM).queryAllByRole("listitem");
     expect(suggestionListItems.length).toBe(allLocations.length + 1);
   });
+
+
 });

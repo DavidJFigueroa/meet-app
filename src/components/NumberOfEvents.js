@@ -1,5 +1,3 @@
-// src/components/NumberOfEvents.js
-
 import React from "react";
 
 const NumberOfEvents = ({

@@ -46,7 +46,6 @@ const App = () => {
   };
 
   function onEventNumberChange(number) {
-    console.log("onEventNumberChange:", number);
     setEventNumber(number);
     handleCitySelected(selectedCity, number);
   }
@@ -61,7 +60,6 @@ const App = () => {
         allLocations={allLocations}
         setSelectedCity={setSelectedCity}
         setInfoAlert={setInfoAlert}
-       
       />
       <NumberOfEvents
         eventNumber={eventNumber}

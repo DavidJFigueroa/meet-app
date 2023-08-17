@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import Event from "../components/Event";
 //import userEvent from "@testing-library/user-event";
 
@@ -64,10 +64,7 @@ describe("<Event /> component", () => {
       screen.queryByText(/Have you wondered how you can ask Google/)
     ).not.toBeInTheDocument();
   });
-  // test("by default, event's details section should be hidden", () => {
-  //   const eventDetails = screen.queryByText("description");
-  //   expect(eventDetails).not.toBeInTheDocument();
-  // });
+
   test("shows and hides details section when the user toggles button", () => {
     render(<Event event={event} />);
     const showDetailsButton = screen.getByText("Show Details");
