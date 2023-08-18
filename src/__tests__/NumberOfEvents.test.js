@@ -1,8 +1,7 @@
-import {getByText, render, screen, within} from "@testing-library/react";
+import {render, screen, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import NumberOfEvents from "../components/NumberOfEvents";
 import App from "../App";
-
 
 describe("<NumberOfEvents /> component", () => {
   test("checks if element has the role of a text box", () => {
@@ -43,48 +42,57 @@ describe("<NumberOfEvents /> component", () => {
     await userEvent.type(numberTextBox, "{backspace}{backspace}10");
     expect(handleEventNumberChange).toHaveBeenCalled();
   });
+
+  // test("user needs to input a valid number", async () => {
+  //   const handleEventNumberChange = jest.fn();
+  //   const {getByText} = render(
+  //     <NumberOfEvents
+  //       eventNumber={32}
+  //       onEventNumberChange={handleEventNumberChange}
+  //       setEventNumber={() => {}}
+  //       setErrorAlert={() => {}}
+  //     />
+  //   );
+  //   const numberTextBox = screen.getByPlaceholderText("Enter a number");
+  //   await userEvent.type(numberTextBox, "{backspace}{backspace}X");
+  //   expect(getByText("Not a valid number")).toBeInTheDocument();
+  // });
+
   test("user needs to input a valid number", async () => {
-    const handleEventNumberChange = jest.fn();
+    const user = userEvent.setup();
+    const AppComponent = render(<App />);
+    const AppDOM = AppComponent.container.firstChild;
+
+    const NumberOfEventsDOM = AppDOM.querySelector("#number-of-events");
+    const numberTextBox = within(NumberOfEventsDOM).queryByRole("textbox");
+
     const {getByText} = render(
       <NumberOfEvents
         eventNumber={32}
-        onEventNumberChange={handleEventNumberChange}
         setEventNumber={() => {}}
         setErrorAlert={() => {}}
       />
     );
-    const numberTextBox = screen.getByPlaceholderText("Enter a number");
-    await userEvent.type(numberTextBox, "{backspace}{backspace}X");
+    await user.type(numberTextBox, "{backspace}{backspace}X");
     expect(getByText("Not a valid number")).toBeInTheDocument();
   });
 
   test("user needs to input a number smaller than 100", async () => {
-    const handleEventNumberChange = jest.fn();
-    const {getByText} = render(
-      <NumberOfEvents
-        eventNumber={32}
-        onEventNumberChange={handleEventNumberChange}
-        setEventNumber={() => {}}
-        setErrorAlert={() => {}}
-      />
-    );
-    const numberTextBox = screen.getByPlaceholderText("Enter a number");
-    await userEvent.type(numberTextBox, "{backspace}{backspace}102");
-    expect(getByText("Maximum Value is 100")).toBeInTheDocument();
-  });
+    const user = userEvent.setup();
+    const AppComponent = render(<App />);
+    const AppDOM = AppComponent.container.firstChild;
 
-  test("user cant input a number smaller than 1", async () => {
-    const handleEventNumberChange = jest.fn();
+    const NumberOfEventsDOM = AppDOM.querySelector("#number-of-events");
+    const numberTextBox = within(NumberOfEventsDOM).queryByRole("textbox");
+
     const {getByText} = render(
       <NumberOfEvents
         eventNumber={32}
-        onEventNumberChange={handleEventNumberChange}
         setEventNumber={() => {}}
         setErrorAlert={() => {}}
       />
     );
-    const numberTextBox = screen.getByPlaceholderText("Enter a number");
-    await userEvent.type(numberTextBox, "{backspace}{backspace}-1");
-    expect(getByText("Minimum Value is 1")).toBeInTheDocument();
+    await user.type(numberTextBox, "{backspace}{backspace}102");
+    expect(getByText("Maximum Value is 100")).toBeInTheDocument();
   });
 });

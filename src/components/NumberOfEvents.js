@@ -19,8 +19,6 @@ const NumberOfEvents = ({
       errorText = "Not a valid number";
     } else if (value > 100) {
       errorText = "Maximum Value is 100";
-    } else if (value <= 0) {
-      errorText = "Minimum Value is 1";
     } else {
       errorText = "";
       setEventNumber();
